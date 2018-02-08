@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/w3css/4/w3.css">
+<head>
+
+</head>
+
+
+<body ng-app="myEcomApp" ng-controller="myEcomCtrl">
+
+	<div class="row">
+		<div class="col-sm-8" align="center">
+			<h2>Sample Application</h2>
+		</div>
+		<div class="col-sm-4" align="right">
+			<p>
+				<a href="#!login"><button ng-bind="username" ng-click="login()">Login</button></a>
+				<a href="#!cart"><button ng-click="cart()">Cart</button></a>
+			<div ng-view></div>
+
+			</p>
+
+		</div>
+	</div>
+
+	<br>
+	<br>
+	<br>
+
+	<div>
+		<div class="row">
+			<div class="col-sm-4" align="right">
+				<p>Search field:</p>
+			</div>
+			<div class="col-sm-8" align="left">
+				<p>
+					<input type="text" ng-model="searchItem">
+				</p>
+			</div>
+		</div>
+		
+		<br><br><br>
+
+		<div ng-repeat="product in products | filter:searchItem">
+
+			<div class="row">
+				<div class="col-sm-4">
+					<img src="img/img.jpeg" width="400" height="200"></img>
+				</div>
+				<div class="col-sm-8">
+					<label class="search">{{product}}</label>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+						sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+						eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
+						ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum
+						dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum
+						dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum
+						dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua.</p>
+				</div>
+			</div>
+
+			<br> <br> <br>
+
+		</div>
+
+
+	</div>
+
+	<script>
+	
+	var app = angular.module("myEcomApp", ["ngRoute"]); 
+	app.config(function($routeProvider) {
+	    $routeProvider
+	    .when("/cart", {
+	        templateUrl : "cart.htm",
+	        controller : "myCartCtrl"
+	    })
+	    .when("/login", {
+	        templateUrl : "login.htm",
+	        controller : "myLoginCtrl"
+	    });
+	   
+	});
+
+	app.controller("myEcomCtrl", function($scope) {
+	$scope.products = ["Product 1", "Product 2", "Product 3"];
+		
+		$scope.showCart = false;
+		$scope.showLogin = false;
+		$scope.username = "Login";
+	 $scope.login = function() {
+        $scope.showLogin = !$scope.showLogin;
+        $scope.showCart = false;
+       	};
+   	 $scope.cart = function() {
+   		$scope.showCart = !$scope.showCart;
+   		$scope.showLogin = false;
+   		};
+	});
+
+	app.controller("myCartCtrl", function($scope) {
+	    $scope.products = ["Product 1", "Product 2", "Product 3"];
+	    
+	    $scope.removeItem = function (x) {
+	        $scope.errortext = "";    
+	        $scope.products.splice(x, 1);
+	    }
+	});
+
+	app.controller("myLoginCtrl", function($scope) {
+	    $scope.signIn = function() {
+		    alert(username);
+		    username = $scope.user.userName;
+	        alert(username);
+	       	};
+	});
+	
+</script>
+
+</body>
+
+</html>

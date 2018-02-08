@@ -1,0 +1,9 @@
+<div ng-app="myLogin" ng-cloak ng-controller="myLoginCtrl"
+	ng-show="showLogin">
+	<form>
+		Username:<br> <input type="text" "required="required" ng-model="user.userName"><br>
+		Password:<br> <input type="password" required="required" ng-model="user.password"><br>
+		<br>
+		<button ng-click="signIn()">Sign in</button>
+	</form>
+</div>
